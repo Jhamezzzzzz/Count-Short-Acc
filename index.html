@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>DAY NO SHORTAGE MATERIAL</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .app-container {
+            position: relative;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 140px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            margin-top: 50px;
+            text-align: center;
+            color: red;
+        }
+
+        .countup-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .countdown-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .time-box1 {
+            background-color: red;
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            min-width: 200px;
+            text-align: center;
+            font-size: 2.2rem;
+        }
+        .time-box2 {
+            background-color: white;
+            color: black;
+            padding: 40px;
+            border-radius: 10px;
+            min-width: 200px;
+            text-align: center;
+            font-size: 2.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <img src="https://th.bing.com/th/id/R.5848369b94793a4a77ac3b55b5c2ca9e?rik=18w7E62SCz4fCA&riu=http%3a%2f%2fwww.carlogos.org%2flogo%2fToyota-text-logo-3000x550.png&ehk=nBHkyymrFWlpZH4Ac%2b%2bn6RZHD%2fgYKf5MzBMq5k7nNn0%3d&risl=&pid=ImgRaw&r=0" alt="Logo" class="logo" />
+        <h1 class="title">DAY NO SHORTAGE MATERIAL</h1>
+        <div class="countup-container">
+            <div class="time-box1">
+                <span id="days1">0 Days</span>
+            </div>
+            <div class="time-box1">
+                <span id="hours1">0 Hours</span>
+            </div>
+            <div class="time-box1">
+                <span id="minutes1">0 Minutes</span>
+            </div>
+            <div class="time-box1">
+                <span id="seconds1">0 Seconds</span>
+            </div>
+        </div>
+
+        <h2 class="title">DAY ZERO ACCIDENT WAREHOUSE</h2>
+        <div class="countdown-container">
+            <div class="time-box2">
+                <span id="days2">0 Days</span>
+            </div>
+            <div class="time-box2">
+                <span id="hours2">0 Hours</span>
+            </div>
+            <div class="time-box2">
+                <span id="minutes2">0 Minutes</span>
+            </div>
+            <div class="time-box2">
+                <span id="seconds2">0 Seconds</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Waktu mulai untuk time-box1 (17 hari, 10 jam, 35 menit, 0 detik)
+        const startTime1 = 17 * 24 * 60 * 60 + 10 * 60 * 60 + 35 * 60;
+        // Waktu mulai untuk time-box2 (42 hari, 10 jam, 35 menit, 0 detik)
+        const startTime2 = 42 * 24 * 60 * 60 + 10 * 60 * 60 + 35 * 60;
+
+        // Ambil waktu yang telah berlalu dari localStorage (jika ada)
+        let elapsedTime1 = parseInt(localStorage.getItem('elapsedTime1')) || startTime1;
+        let elapsedTime2 = parseInt(localStorage.getItem('elapsedTime2')) || startTime2;
+
+        function updateCountdown() {
+            // Menambah satu detik dari masing-masing waktu
+            elapsedTime1++;
+            elapsedTime2++;
+
+            // Menghitung waktu untuk time-box1
+            let days1 = Math.floor(elapsedTime1 / (24 * 60 * 60));
+            let hours1 = Math.floor((elapsedTime1 % (24 * 60 * 60)) / (60 * 60));
+            let minutes1 = Math.floor((elapsedTime1 % (60 * 60)) / 60);
+            let seconds1 = elapsedTime1 % 60;
+
+            // Menghitung waktu untuk time-box2
+            let days2 = Math.floor(elapsedTime2 / (24 * 60 * 60));
+            let hours2 = Math.floor((elapsedTime2 % (24 * 60 * 60)) / (60 * 60));
+            let minutes2 = Math.floor((elapsedTime2 % (60 * 60)) / 60);
+            let seconds2 = elapsedTime2 % 60;
+
+            // Menampilkan hasil counting untuk time-box1
+            document.getElementById("days1").textContent = `${days1} Days`;
+            document.getElementById("hours1").textContent = `${hours1} Hours`;
+            document.getElementById("minutes1").textContent = `${minutes1} Minutes`;
+            document.getElementById("seconds1").textContent = `${seconds1} Seconds`;
+
+            // Menampilkan hasil counting untuk time-box2
+            document.getElementById("days2").textContent = `${days2} Days`;
+            document.getElementById("hours2").textContent = `${hours2} Hours`;
+            document.getElementById("minutes2").textContent = `${minutes2} Minutes`;
+            document.getElementById("seconds2").textContent = `${seconds2} Seconds`;
+
+            // Simpan waktu yang telah berlalu ke localStorage
+            localStorage.setItem('elapsedTime1', elapsedTime1);
+            localStorage.setItem('elapsedTime2', elapsedTime2);
+        }
+
+        // Memperbarui counting setiap detik
+        setInterval(updateCountdown, 1000);
+
+        // Memanggil updateCountdown sekali untuk menampilkan waktu awal
+        updateCountdown();
+    </script>
+</body>
+</html>
